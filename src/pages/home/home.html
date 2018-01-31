@@ -1,14 +1,55 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Tìm Vị Trí Cột BTS
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Mã Nước (MCC)</ion-label>
+      <ion-input type="text" [(ngModel)]="model.MCC" name="MCC"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mã Mạng (MNC)</ion-label>
+      <ion-select [(ngModel)]="model.MNC">
+        <ion-option value="1">01 - MobiFone</ion-option>
+        <ion-option value="2">02 - VinaPhone</ion-option>
+        <ion-option value="3">03 - SFone</ion-option>
+        <ion-option value="4">04 - Viettel</ion-option>
+        <ion-option value="5">05 - VietnamMobile</ion-option>
+        <ion-option value="6">06 - EMobile</ion-option>
+        <ion-option value="7">07 - Beeline</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mã Vùng (LAC)</ion-label>
+      <ion-input type="number" [(ngModel)]="model.LAC" name="LAC"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mã Cell (CellId)</ion-label>
+      <ion-input type="number" [(ngModel)]="model.ID" name="cellId"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label>3G</ion-label>
+      <ion-checkbox [(ngModel)]="is3g" name="RncCheckBox"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="is3g">
+      <ion-label floating>Mã RNC</ion-label>
+      <ion-input type="number" [(ngModel)]="model.RNC" name="RncId"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button secondary outline center (click)="getLocation();">Tìm Vị Trí</button>
+  <agm-map [latitude]="loc.location.lat" [longitude]="loc.location.lng" [zoom]="15">
+    <agm-marker [latitude]="loc.location.lat" [longitude]="loc.location.lng">
+      <agm-info-window>{{ address }}</agm-info-window>
+      <agm-circle [latitude]="loc.location.lat" [longitude]="loc.location.lng" [radius]="loc.accuracy" [fillColor]="'red'"></agm-circle>
+    </agm-marker>
+  </agm-map>
+  <strong *ngIf="address">Vị Trí: {{ address }}</strong><br/>
+  <strong>Vĩ Độ (Latitude): {{ loc.location.lat }}</strong><br/>
+  <strong>Kinh Độ (Latitude): {{ loc.location.lng }}</strong><br/>
+  <strong>Bán Kính (Radius): {{ loc.accuracy }}</strong>
 </ion-content>
