@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar align-title="center">
     <ion-title>
       Tìm Vị Trí Cột BTS
     </ion-title>
@@ -42,14 +42,16 @@
     </ion-item>
   </ion-list>
   <button ion-button secondary outline center (click)="getLocation();">Tìm Vị Trí</button>
-  <agm-map [latitude]="loc.location.lat" [longitude]="loc.location.lng" [zoom]="15">
-    <agm-marker [latitude]="loc.location.lat" [longitude]="loc.location.lng">
-      <agm-info-window>{{ address }}</agm-info-window>
-      <agm-circle [latitude]="loc.location.lat" [longitude]="loc.location.lng" [radius]="loc.accuracy" [fillColor]="'red'"></agm-circle>
-    </agm-marker>
-  </agm-map>
-  <strong *ngIf="address">Vị Trí: {{ address }}</strong><br/>
-  <strong>Vĩ Độ (Latitude): {{ loc.location.lat }}</strong><br/>
-  <strong>Kinh Độ (Latitude): {{ loc.location.lng }}</strong><br/>
-  <strong>Bán Kính (Radius): {{ loc.accuracy }}</strong>
+  <ng-container *ngIf="loc">    
+    <agm-map [latitude]="loc.location.lat" [longitude]="loc.location.lng" [zoom]="15">
+      <agm-marker [latitude]="loc.location.lat" [longitude]="loc.location.lng">
+        <agm-info-window>{{ address }}</agm-info-window>
+        <agm-circle [latitude]="loc.location.lat" [longitude]="loc.location.lng" [radius]="loc.accuracy" [fillColor]="'red'"></agm-circle>
+      </agm-marker>
+    </agm-map>
+    <strong *ngIf="address">Vị Trí: {{ address }}</strong><br/>
+    <strong>Vĩ Độ (Latitude): {{ loc.location.lat }}</strong><br/>
+    <strong>Kinh Độ (Latitude): {{ loc.location.lng }}</strong><br/>
+    <strong>Bán Kính (Radius): {{ loc.accuracy }}</strong>
+  </ng-container>
 </ion-content>

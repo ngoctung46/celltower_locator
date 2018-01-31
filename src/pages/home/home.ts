@@ -12,24 +12,17 @@ export class HomePage {
   title: string = "Get Location Cell Tower";
   model: cell = {
     MCC: 452,
-    MNC: 2,
-    LAC: 242,
-    ID: 42173,
+    MNC: 1,
+    LAC: 0,
+    ID: 0,
     RNC: 0
   };
-  loc: location = {
-    location: {
-      lat: 0,
-      lng: 0
-    },
-    accuracy: 0
-  };
+  loc: location;
   is3g = false;
   test: Number = 0;
   address: String = ``;
   constructor(public navCtrl: NavController, public locService: LocationService) 
   {
-    this.getLocation();
   }
 
   getLocation(): void {
@@ -37,11 +30,15 @@ export class HomePage {
     this.locService.getLocation(this.model).subscribe(result => 
     {
       this.loc = result;
-      this.locService.getAddress(this.loc.location.lat, this.loc.location.lng).subscribe(
-        res => {
-          this.address = res.results[0].formatted_address || `Latitude: ${this.loc.location.lat} - Longitude: ${this.loc.location.lng}`;
+      if(this.loc != null){
+        this.locService.getAddress(this.loc.location.lat, this.loc.location.lng).subscribe(
+          res => {
+            this.address = res.results[0].formatted_address || `Latitude: ${this.loc.location.lat} - Longitude: ${this.loc.location.lng}`;
         });
-      
+      }
+      else {
+        console.log("ERROR");
+      } 
     });    
   }
 }
