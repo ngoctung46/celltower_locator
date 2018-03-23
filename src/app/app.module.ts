@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AgmCoreModule } from '@agm/core';
+import { LaunchNavigator } from '@ionic-native/launch-navigator'
+import { Geolocation } from '@ionic-native/geolocation';
 
 const API = `AIzaSyBoMCg1eMFRi0OJ5B8SHzA1ciGFFuZ1dUs`;
 @NgModule({
@@ -28,6 +30,8 @@ const API = `AIzaSyBoMCg1eMFRi0OJ5B8SHzA1ciGFFuZ1dUs`;
   providers: [
     StatusBar,
     SplashScreen,
+    LaunchNavigator,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

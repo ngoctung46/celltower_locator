@@ -14,7 +14,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Mã Mạng (MNC)</ion-label>
-      <ion-select [(ngModel)]="model.MNC">
+      <ion-select [(ngModel)]="model.MNC" okText="Chọn" cancelText="Hủy">
         <ion-option value="1">01 - MobiFone</ion-option>
         <ion-option value="2">02 - VinaPhone</ion-option>
         <ion-option value="3">03 - SFone</ion-option>
@@ -42,9 +42,9 @@
     </ion-item>
   </ion-list>
   <button ion-button secondary outline center (click)="getLocation();">Tìm Vị Trí</button>
-  <ng-container *ngIf="loc">    
-    <agm-map [latitude]="loc.location.lat" [longitude]="loc.location.lng" [zoom]="15">
-      <agm-marker [latitude]="loc.location.lat" [longitude]="loc.location.lng">
+  <ng-container *ngIf="list.length > 0">    
+    <agm-map [latitude]="loc.location.lat" [longitude]="loc.location.lng" [zoom]="10">
+      <agm-marker *ngFor="let loc of list" [latitude]="loc.location.lat" [longitude]="loc.location.lng">
         <agm-info-window>{{ address }}</agm-info-window>
         <agm-circle [latitude]="loc.location.lat" [longitude]="loc.location.lng" [radius]="loc.accuracy" [fillColor]="'red'"></agm-circle>
       </agm-marker>
@@ -53,5 +53,6 @@
     <strong>Vĩ Độ (Latitude): {{ loc.location.lat }}</strong><br/>
     <strong>Kinh Độ (Latitude): {{ loc.location.lng }}</strong><br/>
     <strong>Bán Kính (Radius): {{ loc.accuracy }}</strong>
+    <button ion-button (click)="navigate(currentLocation, destination);">Tìm Đường</button>
   </ng-container>
 </ion-content>
